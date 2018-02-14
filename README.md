@@ -1,65 +1,86 @@
+
 # Computer Systems Organization: Recitation 3 - Solutions
 ---
 
 ### Swap
 
+```c
+void swap(int *p1, int *p2){
+    int temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+}
 ```
-	void swap(int *p1, int *p2)
-	{
-	    int temp = *p1;
-	    *p1 = *p2;
-	    *p2 = temp;
-	}
+
+### Swap2
+
+```c
+void swap2(int **p1, int **p2){
+	int *temp = *p1;
+	*p1 = *p2;
+	*p2 = temp;
+}
 ```
 
 ### Vowels
 
-```
-	int countVowels(char* str) {
-		int i = 0;
-		int j;
-		int count = 0;
-		
-		for (j = 0 ; j < strlen(str) ; j++) {
-			str[j] = tolower(str[j]);
-		}
+```c
+int countVowels(char* str) {
+	int i,j;
+	int count = 0;
 
-		char vowels[] = {'a', 'e', 'i', 'o', 'u'};
+	// For the adventurous
+	// for(i=0; str[i] != 0; ++i){
+	//    count += ( ((0x208222>>str[i]) & 1) ? 1 : 0);
+	//}
 
-		while (str[i] != '\0') {
-			for (j = 0 ; j < strlen(vowels) ; j++) {
-				if (str[i] == vowels[j]) {
-					count++;
-				}
+	const char vowels[] = "aeiou";
+	
+	char temp;
+	i=0;
+	while (str[i] != '\0') {
+		temp = tolower(str[i]);
+		for (j = 0 ; j < strlen(vowels) ; j++) {
+			if (temp == vowels[j]) {
+				count++;
+				break;
 			}
-			i++;
 		}
-			
-		return count;
-	}
+		i++;
+	}		
+	return count;
+}
 ```
 
 ### Reverse
 
-```
-	void reverse_array (int * array, int length) {
-		int i, temp;
-		int j = length - 1;
-		for (i = 0 ; i < length / 2 ; i++) {
-			temp = array[i];
-	  		array[i] = array[j];
-	  		array[j] = temp;
-	  		j--;
-		}
+```c
+void reverse_array (int * array, int length) {
+	int i, temp;
+	int j = length - 1;
+	while(i<j){
+		temp = array[i];
+		array[i++] = array[j];
+		array[j--] = temp;
 	}
+}
+```
 
-	void print_array (int * array, char * result, int length) {
-		int i;
-		for (i = 0 ; i < length ; i++) {
-			result[i] = array[i] + '0';
+### Secret Message
+
+```c
+void decipher( int * message, int size, char * deciphered_message) { 
+    const int CHAR_SIZE = 1<<8; 
+    int i,j;
+    for(i=0;i<size;++i){
+		for(j=0;j<sizeof(int)/sizeof(char);++j){
+			deciphered_message[j + i*4 ] = message[i] % CHAR_SIZE;
+			message[i] /= CHAR_SIZE;
 		}
-		result[length] = '\0';
 	}
+}
 ```
+
 
 For graders: The Swap and Vowels programs yield the "Correct" message when the program is correct. For reverse, the expected output to the console is "01123587".
+The expected output of the secret message is 'Hello CS201!'.
