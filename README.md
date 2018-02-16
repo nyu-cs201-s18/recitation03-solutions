@@ -92,6 +92,3 @@ void decipher( int * message, int size, char * deciphered_message) {
 }
 ```
 
-
-For graders: The Swap and Vowels programs yield the "Correct" message when the program is correct. For reverse, the expected output to the console is "01123587".
-The expected output of the secret message is 'Hello CS201!'.
