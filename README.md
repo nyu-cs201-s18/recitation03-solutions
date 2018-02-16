@@ -67,6 +67,17 @@ void reverse_array (int * array, int length) {
 ```
 
 ### Secret Message
+```c
+void decipher( int * message, int size, char * deciphered_message) { 
+	char * temp=(char *) message;
+	int i;
+	for (i=0; i<size*sizeof(int); i++) {
+		deciphered_message[i]=temp[i];
+	}
+}
+```
+
+or a version without pointers 
 
 ```c
 void decipher( int * message, int size, char * deciphered_message) { 
